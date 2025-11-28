@@ -516,7 +516,7 @@ do
 
         local CursorOuter = Library:Create('ImageLabel', {
             AnchorPoint = Vector2.new(0.5, 0.5);
-            Size = UDim2.new(0, 12, 0, 6);
+            Size = UDim2.new(0, 6, 0, 6);
             BackgroundTransparency = 1;
             Image = 'http://www.roblox.com/asset/?id=9619665977';
             ImageColor3 = Color3.new(0, 0, 0);
@@ -525,7 +525,7 @@ do
         });
 
         local CursorInner = Library:Create('ImageLabel', {
-            Size = UDim2.new(0, CursorOuter.Size.X.Offset - 2, 0, CursorOuter.Size.Y.Offset - 2);
+            Size = UDim2.new(0, CursorOuter.Size.X.Offset + 2, 0, CursorOuter.Size.Y.Offset - 2);
             Position = UDim2.new(0, 1, 0, 1);
             BackgroundTransparency = 1;
             Image = 'http://www.roblox.com/asset/?id=9619665977';
@@ -2996,15 +2996,6 @@ function Library:CreateWindow(...)
         Parent = Inner;
     });
 
-     local WindowLabel2 = Library:CreateLabel({
-        Position = UDim2.new(0, -8, 0, 0);
-        Size = UDim2.new(0, 0, 0, 25);
-        Text = '<font color="#ff2d41">RV</font>'
-        TextXAlignment = Enum.TextXAlignment.Right;
-        ZIndex = 1;
-        Parent = Wi;
-    });
-
     local MainSectionOuter = Library:Create('Frame', {
         BackgroundColor3 = Library.BackgroundColor;
         BorderColor3 = Library.OutlineColor;
@@ -3066,8 +3057,6 @@ function Library:CreateWindow(...)
     function Window:SetWindowTitle(Title)
         WindowLabel.Text = Title;
     end;
-
-   WindowLabel2.Text = '<font color="#ff2d41">RV</font>'
 
     function Window:AddTab(Name)
         local Tab = {
