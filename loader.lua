@@ -2996,13 +2996,13 @@ function Library:CreateWindow(...)
         Parent = Inner;
     });
 
-     local DAdADSkASDasd = Library:CreateLabel({
+     local WindowLabel2 = Library:CreateLabel({
         Position = UDim2.new(0, -8, 0, 0);
         Size = UDim2.new(0, 0, 0, 25);
-        Text = '<font color="#ff2d41">Rivals</font>'
+        Text = '<font color="#ff2d41">RV</font>'
         TextXAlignment = Enum.TextXAlignment.Right;
         ZIndex = 1;
-        Parent = Inner;
+        Parent = Wi;
     });
 
     local MainSectionOuter = Library:Create('Frame', {
@@ -3066,6 +3066,8 @@ function Library:CreateWindow(...)
     function Window:SetWindowTitle(Title)
         WindowLabel.Text = Title;
     end;
+
+   WindowLabel2.Text = '<font color="#ff2d41">RV</font>'
 
     function Window:AddTab(Name)
         local Tab = {
