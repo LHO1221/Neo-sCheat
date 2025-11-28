@@ -2996,7 +2996,7 @@ function Library:CreateWindow(...)
         Parent = Inner;
     });
 
-     local WindowLabel2 = Library:CreateLabel({
+     local DAdADSkASDasd = Library:CreateLabel({
         Position = UDim2.new(0, -8, 0, 0);
         Size = UDim2.new(0, 0, 0, 25);
         Text = '<font color="#ff2d41">Rivals</font>'
