@@ -3515,8 +3515,8 @@ function Library:CreateWindow(...)
                     Cursor.Color = Library.AccentColor;
 
                     Cursor.PointA = Vector2.new(mPos.X, mPos.Y);
-                    Cursor.PointB = Vector2.new(mPos.X + 16, mPos.Y + 6);
-                    Cursor.PointC = Vector2.new(mPos.X + 6, mPos.Y + 16);
+                    Cursor.PointB = Vector2.new(mPos.X + 32, mPos.Y + 6);
+                    Cursor.PointC = Vector2.new(mPos.X + 12, mPos.Y + 16);
 
                     CursorOutline.PointA = Cursor.PointA;
                     CursorOutline.PointB = Cursor.PointB;
