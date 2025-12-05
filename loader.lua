@@ -3510,7 +3510,7 @@ function Library:CreateWindow(...)
                 while Toggled and ScreenGui.Parent do
                     InputService.MouseIconEnabled = false;
 
-                    local mPos = InputService:GetMouseLocation();
+                    local mPos = Vector2.new(Mouse.X, Mouse.Y);
 
                     Cursor.Color = Library.AccentColor;
 
