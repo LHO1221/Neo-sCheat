@@ -3510,15 +3510,13 @@ function Library:CreateWindow(...)
                 while Toggled and ScreenGui.Parent do
                     InputService.MouseIconEnabled = false;
 
-                    local mousePos = InputService:GetMouseLocation()
-                    local guiInset = game:GetService('GuiService'):GetGuiInset()
-                    local mPos = Vector2.new(mousePos.X, mousePos.Y - guiInset.Y);
-            
+                    local mPos = InputService:GetMouseLocation();
+
                     Cursor.Color = Library.AccentColor;
 
                     Cursor.PointA = Vector2.new(mPos.X, mPos.Y);
-                    Cursor.PointB = Vector2.new(mPos.X + 10, mPos.Y + 12);
-                    Cursor.PointC = Vector2.new(mPos.X, mPos.Y + 16);
+                    Cursor.PointB = Vector2.new(mPos.X + 160, mPos.Y + 6);
+                    Cursor.PointC = Vector2.new(mPos.X + 6, mPos.Y + 16);
 
                     CursorOutline.PointA = Cursor.PointA;
                     CursorOutline.PointB = Cursor.PointB;
