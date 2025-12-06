@@ -3493,43 +3493,49 @@ function Library:CreateWindow(...)
             Outer.Visible = true;
 
             task.spawn(function()
-                -- TODO: add cursor fade?
-                local State = InputService.MouseIconEnabled;
+    local State = InputService.MouseIconEnabled;
+    local GuiService = game:GetService('GuiService');
 
-                local Cursor = Drawing.new('Triangle');
-                Cursor.Thickness = 1;
-                Cursor.Filled = true;
-                Cursor.Visible = true;
+    local CursorOutline = Library:Create('ImageLabel', {
+        BackgroundTransparency = 1;
+        Size = UDim2.new(0, 19, 0, 19);
+        Image = 'http://www.roblox.com/asset/?id=4292970642';
+        ImageColor3 = Color3.new(0, 0, 0);
+        Rotation = -45;
+        ZIndex = 999;
+        Parent = ScreenGui;
+    });
 
-                local CursorOutline = Drawing.new('Triangle');
-                CursorOutline.Thickness = 1;
-                CursorOutline.Filled = false;
-                CursorOutline.Color = Color3.new(0, 0, 0);
-                CursorOutline.Visible = true;
+    -- 안쪽 커서
+    local Cursor = Library:Create('ImageLabel', {
+        BackgroundTransparency = 1;
+        Size = UDim2.new(0, 17, 0, 17);
+        Image = 'http://www.roblox.com/asset/?id=4292970642';
+        ImageColor3 = Library.AccentColor;
+        Rotation = -45;
+        ZIndex = 1000;
+        Parent = ScreenGui;
+    });
 
-                while Toggled and ScreenGui.Parent do
-                    InputService.MouseIconEnabled = false;
+    while Toggled and ScreenGui.Parent do
+        InputService.MouseIconEnabled = false;
 
-                    local mPos = InputService:GetMouseLocation();
+        local mPos = InputService:GetMouseLocation();
+        local guiInset = GuiService:GetGuiInset();
+        local cursorPos = Vector2.new(mPos.X, mPos.Y - guiInset.Y);
 
-                    Cursor.Color = Library.AccentColor;
+        Cursor.ImageColor3 = Library.AccentColor;
+        Cursor.Position = UDim2.fromOffset(cursorPos.X, cursorPos.Y);
+        CursorOutline.Position = UDim2.fromOffset(cursorPos.X - 1, cursorPos.Y - 1);
 
-                    Cursor.PointA = Vector2.new(mPos.X, mPos.Y);
-                    Cursor.PointB = Vector2.new(mPos.X + 20, mPos.Y + 6);
-                    Cursor.PointC = Vector2.new(mPos.X + 6, mPos.Y + 16);
+        RenderStepped:Wait();
+    end;
 
-                    CursorOutline.PointA = Cursor.PointA;
-                    CursorOutline.PointB = Cursor.PointB;
-                    CursorOutline.PointC = Cursor.PointC;
+    InputService.MouseIconEnabled = State;
 
-                    RenderStepped:Wait();
-                end;
-
-                InputService.MouseIconEnabled = State;
-
-                Cursor:Remove();
-                CursorOutline:Remove();
-            end);
+    Cursor:Destroy();
+    CursorOutline:Destroy();
+end);
         end;
 
         for _, Desc in next, Outer:GetDescendants() do
