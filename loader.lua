@@ -3493,49 +3493,48 @@ function Library:CreateWindow(...)
             Outer.Visible = true;
 
             task.spawn(function()
-    local State = InputService.MouseIconEnabled;
-    local GuiService = game:GetService('GuiService');
+                local State = InputService.MouseIconEnabled;
+                local GuiService = game:GetService('GuiService');
 
-    local CursorOutline = Library:Create('ImageLabel', {
-        BackgroundTransparency = 1;
-        Size = UDim2.new(0, 19, 0, 19);
-        Image = 'http://www.roblox.com/asset/?id=4292970642';
-        ImageColor3 = Color3.new(0, 0, 0);
-        Rotation = -45;
-        ZIndex = 999;
-        Parent = ScreenGui;
-    });
+                local CursorOutline = Library:Create('ImageLabel', {
+                    BackgroundTransparency = 1;
+                    Size = UDim2.new(0, 19, 0, 19);
+                    Image = 'http://www.roblox.com/asset/?id=4292970642';
+                    ImageColor3 = Color3.new(0, 0, 0);
+                    Rotation = -45;
+                    ZIndex = 999;
+                    Parent = ScreenGui;
+                });
 
-    -- 안쪽 커서
-    local Cursor = Library:Create('ImageLabel', {
-        BackgroundTransparency = 1;
-        Size = UDim2.new(0, 17, 0, 17);
-        Image = 'http://www.roblox.com/asset/?id=4292970642';
-        ImageColor3 = Library.AccentColor;
-        Rotation = -45;
-        ZIndex = 1000;
-        Parent = ScreenGui;
-    });
+                local Cursor = Library:Create('ImageLabel', {
+                    BackgroundTransparency = 1;
+                    Size = UDim2.new(0, 17, 0, 17);
+                    Image = 'http://www.roblox.com/asset/?id=4292970642';
+                    ImageColor3 = Library.AccentColor;
+                    Rotation = -45;
+                    ZIndex = 1000;
+                    Parent = ScreenGui;
+                });
 
-    while Toggled and ScreenGui.Parent do
-        InputService.MouseIconEnabled = false;
+                while Toggled and ScreenGui.Parent do
+                    InputService.MouseIconEnabled = false;
 
-        local mPos = InputService:GetMouseLocation();
-        local guiInset = GuiService:GetGuiInset();
-        local cursorPos = Vector2.new(mPos.X, mPos.Y - guiInset.Y);
+                    local mPos = InputService:GetMouseLocation();
+                    local guiInset = GuiService:GetGuiInset();
+                    local cursorPos = Vector2.new(mPos.X, mPos.Y - guiInset.Y);
 
-        Cursor.ImageColor3 = Library.AccentColor;
-        Cursor.Position = UDim2.fromOffset(cursorPos.X, cursorPos.Y);
-        CursorOutline.Position = UDim2.fromOffset(cursorPos.X - 1, cursorPos.Y - 1);
-
-        RenderStepped:Wait();
-    end;
-
-    InputService.MouseIconEnabled = State;
-
-    Cursor:Destroy();
-    CursorOutline:Destroy();
-end);
+                    Cursor.ImageColor3 = Library.AccentColor;
+                    Cursor.Position = UDim2.fromOffset(cursorPos.X, cursorPos.Y);
+                    CursorOutline.Position = UDim2.fromOffset(cursorPos.X - 1, cursorPos.Y - 1);
+            
+                    RenderStepped:Wait();
+                end;
+            
+                InputService.MouseIconEnabled = State;
+            
+                Cursor:Destroy();
+                CursorOutline:Destroy();
+            end);
         end;
 
         for _, Desc in next, Outer:GetDescendants() do
