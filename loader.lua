@@ -2155,7 +2155,7 @@ end;
                 TextSize = 14;
                 Text = Info.Text;
                 TextXAlignment = Enum.TextXAlignment.Left;
-                TextYAlignment = Enum.TextYAlignment.Bottom;
+                TextYAlignment = Enum.TextYAlignment.Center;
                 ZIndex = 5;
                 Parent = Container;
             });
