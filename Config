@@ -228,7 +228,7 @@ local SaveManager = {} do
             local name = Options.SaveManager_ConfigList.Value
 
             if not name then
-                return self.Library:Notify('Please select a config first', 2)
+                return self.Library:Notify('Failed to load config: no config file is selected', 5)
             end
 
             local success, err = self:Load(name)
@@ -243,7 +243,7 @@ local SaveManager = {} do
             local name = Options.SaveManager_ConfigList.Value
 
             if not name then
-                return self.Library:Notify('Please select a config first', 2)
+                return self.Library:Notify('Failed to overwrite config: no config file is selected', 5)
             end
 
             local success, err = self:Save(name)
