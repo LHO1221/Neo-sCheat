@@ -11,10 +11,10 @@ local Mouse = LocalPlayer:GetMouse();
 
 local ProtectGui = protectgui or (syn and syn.protect_gui) or (function() end);
 
+ScreenGui.DisplayOrder = 10
 local ScreenGui = Instance.new('ScreenGui');
 ProtectGui(ScreenGui);
 
---ScreenGui.DisplayOrder = 10
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 ScreenGui.Parent = CoreGui;
 
@@ -141,7 +141,6 @@ function Library:ApplyTextStroke(Inst)
         Thickness = 1;
         LineJoinMode = Enum.LineJoinMode.Miter;
         Parent = Inst;
-        TextYAlignment = Enum.TextYAlignment.Center;
     });
 end;
 
@@ -2730,6 +2729,8 @@ do
     Library.WatermarkText = WatermarkLabel;
     Library:MakeDraggable(Library.Watermark);
 
+
+
     local KeybindOuter = Library:Create('Frame', {
         AnchorPoint = Vector2.new(0, 0.5);
         BorderColor3 = Color3.new(0, 0, 0);
@@ -2966,16 +2967,6 @@ function Library:CreateWindow(...)
         ZIndex = 1;
         Parent = Inner;
     });
-
-    Library:CreateLabel({
-        Position = UDim2.new(0.5, 0, 0, 0);
-        Size = UDim2.new(0, -8, 0, 25);
-        Text = '<font color="#ff2d41">Rivals</font>';
-        RichText = false;
-        TextXAlignment = Enum.TextXAlignment.Center;
-        ZIndex = 1;
-        Parent = Inner;
-    })
 
     local MainSectionOuter = Library:Create('Frame', {
         BackgroundColor3 = Library.BackgroundColor;
@@ -3619,5 +3610,4 @@ Players.PlayerAdded:Connect(OnPlayerChange);
 Players.PlayerRemoving:Connect(OnPlayerChange);
 
 getgenv().Library = Library
-
 return Library
