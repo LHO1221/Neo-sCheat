@@ -2730,8 +2730,6 @@ do
     Library.WatermarkText = WatermarkLabel;
     Library:MakeDraggable(Library.Watermark);
 
-
-
     local KeybindOuter = Library:Create('Frame', {
         AnchorPoint = Vector2.new(0, 0.5);
         BorderColor3 = Color3.new(0, 0, 0);
@@ -2973,6 +2971,7 @@ function Library:CreateWindow(...)
         Position = UDim2.new(0.5, 0, 0, 0);
         Size = UDim2.new(0, -8, 0, 25);
         Text = '<font color="#ff2d41">Rivals</font>';
+        RichText = false;
         TextXAlignment = Enum.TextXAlignment.Center;
         ZIndex = 1;
         Parent = Inner;
