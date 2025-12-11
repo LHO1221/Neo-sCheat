@@ -11,12 +11,13 @@ local Mouse = LocalPlayer:GetMouse();
 
 local ProtectGui = protectgui or (syn and syn.protect_gui) or (function() end);
 
-ScreenGui.DisplayOrder = 10
 local ScreenGui = Instance.new('ScreenGui');
 ProtectGui(ScreenGui);
 
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 ScreenGui.Parent = CoreGui;
+
+Library.ScreenGui.DisplayOrder = 10
 
 local Toggles = {};
 local Options = {};
