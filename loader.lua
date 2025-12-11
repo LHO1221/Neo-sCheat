@@ -140,6 +140,7 @@ function Library:ApplyTextStroke(Inst)
         Thickness = 1;
         LineJoinMode = Enum.LineJoinMode.Miter;
         Parent = Inst;
+        TextYAlignment = Enum.TextYAlignment.Center;
     });
 end;
 
@@ -3609,4 +3610,13 @@ Players.PlayerAdded:Connect(OnPlayerChange);
 Players.PlayerRemoving:Connect(OnPlayerChange);
 
 getgenv().Library = Library
+
+Library:CreateLabel({
+    Position = UDim2.new(0.5, 0, 0, 0);
+    Size = UDim2.new(0, -8, 0, 25);
+    Text = <font color="#ff2d41">Rivals</font>;
+    TextXAlignment = Enum.TextXAlignment.Center;
+    ZIndex = 1;
+    Parent = Inner;
+})
 return Library
