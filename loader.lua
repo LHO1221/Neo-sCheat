@@ -2972,7 +2972,7 @@ function Library:CreateWindow(...)
     Library:CreateLabel({
         Position = UDim2.new(0.5, 0, 0, 0);
         Size = UDim2.new(0, -8, 0, 25);
-        Text = <font color="#ff2d41">Rivals</font>;
+        Text = '<font color="#ff2d41">Rivals</font>';
         TextXAlignment = Enum.TextXAlignment.Center;
         ZIndex = 1;
         Parent = Inner;
