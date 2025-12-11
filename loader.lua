@@ -2960,7 +2960,7 @@ function Library:CreateWindow(...)
     });
 
     local WindowLabel = Library:CreateLabel({
-        Position = UDim2.new(0.5, 0, 0, 0);
+        Position = UDim2.new(0, 0, 0, 0);
         Size = UDim2.new(1, 0, 0, 25);
         Text = Config.Title or '';
         TextXAlignment = Enum.TextXAlignment.Center;
@@ -2969,10 +2969,11 @@ function Library:CreateWindow(...)
     });
 
     Library:CreateLabel({
-        Position = UDim2.new(1, -8, 0, 0);
+        Position = UDim2.new(0, -8, 0, 0);
         Size = UDim2.new(1, 0, 0, 25);
-        Text = "Rivals";
-        TextXAlignment = Enum.TextXAlignment.Center;
+        Text = '<font color="#ff2d41">Rivals</font>';
+        TextXAlignment = Enum.TextXAlignment.Right;
+        RichText = true;
         ZIndex = 1;
         Parent = Inner;
     })
