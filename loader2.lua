@@ -1693,6 +1693,19 @@ do
         Library:AddToRegistry(ToggleInner, {
             BackgroundColor3 = 'MainColor';
         });
+        
+        -- 토글 글로우 효과
+        local ToggleGlow = Library:Create('UIStroke', {
+            Color = Library.AccentColor;
+            Transparency = 1;
+            Thickness = 2;
+            ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+            Parent = ToggleOuter;
+        });
+        
+        Library:AddToRegistry(ToggleGlow, {
+            Color = 'AccentColor';
+        });
 
         local ToggleLabel = Library:CreateLabel({
             Size = UDim2.new(1, -24, 1, 0);
@@ -1730,6 +1743,9 @@ do
         function Toggle:Display()
             ToggleInner.BackgroundColor3 = Toggle.Value and Library.AccentColor or Library.MainColor;
             Library.RegistryMap[ToggleInner].Properties.BackgroundColor3 = Toggle.Value and 'AccentColor' or 'MainColor';
+            
+            -- 글로우 효과 토글 (더 강하게)
+            ToggleGlow.Transparency = Toggle.Value and 0.1 or 1;
         end;
 
         function Toggle:OnChanged(Func)
@@ -1803,28 +1819,50 @@ do
         local Groupbox = self;
         local Container = Groupbox.Container;
 
-        -- 슬라이더 라벨
+        -- 슬라이더 라벨과 값을 한 줄에
+        local SliderLabelFrame = Library:Create('Frame', {
+            BackgroundTransparency = 1;
+            Size = UDim2.new(1, -4, 0, 14);
+            ZIndex = 5;
+            Parent = Container;
+        });
+
         local SliderLabel = Library:CreateLabel({
-            Size = UDim2.new(1, 0, 0, 14);
+            Size = UDim2.new(0.5, 0, 1, 0);
             TextSize = 13;
             Text = Info.Text;
             TextXAlignment = Enum.TextXAlignment.Left;
             ZIndex = 5;
-            Parent = Container;
+            Parent = SliderLabelFrame;
+        });
+
+        local ValueLabel = Library:CreateLabel({
+            Size = UDim2.new(0.5, 0, 1, 0);
+            Position = UDim2.new(0.5, 0, 0, 0);
+            TextSize = 13;
+            Text = tostring(Slider.Value);
+            TextXAlignment = Enum.TextXAlignment.Right;
+            ZIndex = 5;
+            Parent = SliderLabelFrame;
         });
 
         Groupbox:AddBlank(3);
 
         local SliderOuter = Library:Create('Frame', {
-            BackgroundColor3 = Library.BackgroundColor;
-            Size = UDim2.new(1, -4, 0, 14);
+            BackgroundColor3 = Color3.fromRGB(35, 35, 35);
+            Size = UDim2.new(1, -4, 0, 6);
             ZIndex = 5;
             Parent = Container;
         });
-        Library:AddCorner(SliderOuter, UDim.new(0, 4));
-
-        Library:AddToRegistry(SliderOuter, {
-            BackgroundColor3 = 'BackgroundColor';
+        Library:AddCorner(SliderOuter, UDim.new(0, 3));
+        
+        -- 슬라이더 배경 테두리
+        local SliderBorder = Library:Create('UIStroke', {
+            Color = Color3.fromRGB(50, 50, 50);
+            Transparency = 0;
+            Thickness = 1;
+            ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+            Parent = SliderOuter;
         });
 
         local Fill = Library:Create('Frame', {
@@ -1833,20 +1871,23 @@ do
             ZIndex = 6;
             Parent = SliderOuter;
         });
-        Library:AddCorner(Fill, UDim.new(0, 4));
+        Library:AddCorner(Fill, UDim.new(0, 3));
+        
+        -- 슬라이더 Fill에 강한 글로우 효과
+        local FillGlow = Library:Create('UIStroke', {
+            Color = Library.AccentColor;
+            Transparency = 0.2;
+            Thickness = 2;
+            ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+            Parent = Fill;
+        });
 
         Library:AddToRegistry(Fill, {
             BackgroundColor3 = 'AccentColor';
         });
-
-        local ValueLabel = Library:CreateLabel({
-            Size = UDim2.new(1, -8, 1, 0);
-            Position = UDim2.new(0, 4, 0, 0);
-            TextSize = 11;
-            Text = tostring(Slider.Value);
-            TextXAlignment = Enum.TextXAlignment.Right;
-            ZIndex = 7;
-            Parent = SliderOuter;
+        
+        Library:AddToRegistry(FillGlow, {
+            Color = 'AccentColor';
         });
 
         if type(Info.Tooltip) == 'string' then
@@ -1855,6 +1896,7 @@ do
 
         function Slider:UpdateColors()
             Fill.BackgroundColor3 = Library.AccentColor;
+            FillGlow.Color = Library.AccentColor;
         end;
 
         function Slider:Display()
@@ -2425,7 +2467,22 @@ do
         Parent = ScreenGui;
     });
     Library:AddCorner(WatermarkOuter);
-    Library:AddGlow(WatermarkOuter, Library.AccentColor, 0.6, 1);
+    
+    -- 워터마크 테두리
+    local WatermarkBorder = Library:Create('UIStroke', {
+        Color = Library.AccentColor;
+        Transparency = 0;
+        Thickness = 1;
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+        Parent = WatermarkOuter;
+    });
+    
+    Library:AddToRegistry(WatermarkBorder, {
+        Color = 'AccentColor';
+    });
+    
+    -- 워터마크 글로우
+    Library:AddGlow(WatermarkOuter, Library.AccentColor, 0.5, 2);
 
     Library:AddToRegistry(WatermarkOuter, {
         BackgroundColor3 = 'MainColor';
@@ -2454,7 +2511,22 @@ do
         Parent = ScreenGui;
     });
     Library:AddCorner(KeybindOuter);
-    Library:AddGlow(KeybindOuter, Library.AccentColor, 0.6, 1);
+    
+    -- 키바인드 테두리
+    local KeybindBorder = Library:Create('UIStroke', {
+        Color = Library.AccentColor;
+        Transparency = 0;
+        Thickness = 1;
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+        Parent = KeybindOuter;
+    });
+    
+    Library:AddToRegistry(KeybindBorder, {
+        Color = 'AccentColor';
+    }, true);
+    
+    -- 키바인드 글로우
+    Library:AddGlow(KeybindOuter, Library.AccentColor, 0.5, 2);
 
     Library:AddToRegistry(KeybindOuter, {
         BackgroundColor3 = 'MainColor';
@@ -2468,9 +2540,22 @@ do
         Parent = KeybindOuter;
     });
     Library:AddCorner(ColorFrame, UDim.new(0, 2));
+    
+    -- 키바인드 컬러 프레임 글로우
+    local ColorFrameGlow = Library:Create('UIStroke', {
+        Color = Library.AccentColor;
+        Transparency = 0.2;
+        Thickness = 2;
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+        Parent = ColorFrame;
+    });
 
     Library:AddToRegistry(ColorFrame, {
         BackgroundColor3 = 'AccentColor';
+    }, true);
+    
+    Library:AddToRegistry(ColorFrameGlow, {
+        Color = 'AccentColor';
     }, true);
 
     local KeybindLabel = Library:CreateLabel({
@@ -2556,9 +2641,22 @@ function Library:Notify(Text, Time)
         ZIndex = 104;
         Parent = NotifyOuter;
     });
+    
+    -- 알림 좌측 바 글로우
+    local NotifyGlow = Library:Create('UIStroke', {
+        Color = Library.AccentColor;
+        Transparency = 0.2;
+        Thickness = 2;
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+        Parent = LeftColor;
+    });
 
     Library:AddToRegistry(LeftColor, {
         BackgroundColor3 = 'AccentColor';
+    }, true);
+    
+    Library:AddToRegistry(NotifyGlow, {
+        Color = 'AccentColor';
     }, true);
 
     pcall(NotifyOuter.TweenSize, NotifyOuter, UDim2.new(0, XSize + 24, 0, YSize), 'Out', 'Quad', 0.3, true);
@@ -2612,7 +2710,42 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
     Library:AddCorner(Outer, UDim.new(0, 6));
-    Library:AddGlow(Outer, Library.AccentColor, 0.5, 2);
+    
+    -- 메인 윈도우 테두리 (AccentColor)
+    local MainBorder = Library:Create('UIStroke', {
+        Color = Library.AccentColor;
+        Transparency = 0;
+        Thickness = 2;
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+        Parent = Outer;
+    });
+    
+    Library:AddToRegistry(MainBorder, {
+        Color = 'AccentColor';
+    });
+    
+    -- 글로우 효과를 위한 외부 프레임
+    local GlowFrame = Library:Create('Frame', {
+        AnchorPoint = Vector2.new(0.5, 0.5);
+        BackgroundTransparency = 1;
+        Position = UDim2.new(0.5, 0, 0.5, 0);
+        Size = UDim2.new(1, 12, 1, 12);
+        ZIndex = 0;
+        Parent = Outer;
+    });
+    Library:AddCorner(GlowFrame, UDim.new(0, 10));
+    
+    local GlowEffect = Library:Create('UIStroke', {
+        Color = Library.AccentColor;
+        Transparency = 0.4;
+        Thickness = 6;
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+        Parent = GlowFrame;
+    });
+    
+    Library:AddToRegistry(GlowEffect, {
+        Color = 'AccentColor';
+    });
 
     Library:MakeDraggable(Outer, 35);
 
@@ -2682,9 +2815,22 @@ function Library:CreateWindow(...)
         Parent = Outer;
     });
     Library:AddCorner(TabContainer, UDim.new(0, 4));
+    
+    -- 탭 컨테이너 테두리
+    local TabContainerBorder = Library:Create('UIStroke', {
+        Color = Library.OutlineColor;
+        Transparency = 0;
+        Thickness = 1;
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+        Parent = TabContainer;
+    });
 
     Library:AddToRegistry(TabContainer, {
         BackgroundColor3 = 'MainColor';
+    });
+    
+    Library:AddToRegistry(TabContainerBorder, {
+        Color = 'OutlineColor';
     });
 
     function Window:SetWindowTitle(Title)
@@ -2727,9 +2873,22 @@ function Library:CreateWindow(...)
             Parent = TabButton;
         });
         Library:AddCorner(TabUnderline, UDim.new(0, 1));
+        
+        -- 탭 언더라인 글로우
+        local TabUnderlineGlow = Library:Create('UIStroke', {
+            Color = Library.AccentColor;
+            Transparency = 1;
+            Thickness = 2;
+            ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+            Parent = TabUnderline;
+        });
 
         Library:AddToRegistry(TabUnderline, {
             BackgroundColor3 = 'AccentColor';
+        });
+        
+        Library:AddToRegistry(TabUnderlineGlow, {
+            Color = 'AccentColor';
         });
 
         local TabFrame = Library:Create('Frame', {
@@ -2796,6 +2955,7 @@ function Library:CreateWindow(...)
             end;
 
             TabUnderline.BackgroundTransparency = 0;
+            TabUnderlineGlow.Transparency = 0.1;
             TabButtonLabel.TextColor3 = Library.AccentColor;
             Library.RegistryMap[TabButtonLabel].Properties.TextColor3 = 'AccentColor';
             TabFrame.Visible = true;
@@ -2803,6 +2963,7 @@ function Library:CreateWindow(...)
 
         function Tab:HideTab()
             TabUnderline.BackgroundTransparency = 1;
+            TabUnderlineGlow.Transparency = 1;
             TabButtonLabel.TextColor3 = Library.FontColor;
             Library.RegistryMap[TabButtonLabel].Properties.TextColor3 = 'FontColor';
             TabFrame.Visible = false;
@@ -2823,9 +2984,22 @@ function Library:CreateWindow(...)
                 Parent = Info.Side == 1 and LeftSide or RightSide;
             });
             Library:AddCorner(BoxOuter, UDim.new(0, 4));
+            
+            -- 그룹박스 테두리
+            local BoxBorder = Library:Create('UIStroke', {
+                Color = Library.OutlineColor;
+                Transparency = 0;
+                Thickness = 1;
+                ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+                Parent = BoxOuter;
+            });
 
             Library:AddToRegistry(BoxOuter, {
                 BackgroundColor3 = 'BackgroundColor';
+            });
+            
+            Library:AddToRegistry(BoxBorder, {
+                Color = 'OutlineColor';
             });
 
             local Highlight = Library:Create('Frame', {
@@ -2836,9 +3010,22 @@ function Library:CreateWindow(...)
                 Parent = BoxOuter;
             });
             Library:AddCorner(Highlight, UDim.new(0, 2));
+            
+            -- 그룹박스 하이라이트 글로우
+            local HighlightGlow = Library:Create('UIStroke', {
+                Color = Library.AccentColor;
+                Transparency = 0.2;
+                Thickness = 2;
+                ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+                Parent = Highlight;
+            });
 
             Library:AddToRegistry(Highlight, {
                 BackgroundColor3 = 'AccentColor';
+            });
+            
+            Library:AddToRegistry(HighlightGlow, {
+                Color = 'AccentColor';
             });
 
             local GroupboxLabel = Library:CreateLabel({
@@ -2908,9 +3095,22 @@ function Library:CreateWindow(...)
                 Parent = Info.Side == 1 and LeftSide or RightSide;
             });
             Library:AddCorner(BoxOuter, UDim.new(0, 4));
+            
+            -- 탭박스 테두리
+            local TabboxBorder = Library:Create('UIStroke', {
+                Color = Library.OutlineColor;
+                Transparency = 0;
+                Thickness = 1;
+                ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+                Parent = BoxOuter;
+            });
 
             Library:AddToRegistry(BoxOuter, {
                 BackgroundColor3 = 'BackgroundColor';
+            });
+            
+            Library:AddToRegistry(TabboxBorder, {
+                Color = 'OutlineColor';
             });
 
             local Highlight = Library:Create('Frame', {
@@ -2921,9 +3121,22 @@ function Library:CreateWindow(...)
                 Parent = BoxOuter;
             });
             Library:AddCorner(Highlight, UDim.new(0, 2));
+            
+            -- 탭박스 하이라이트 글로우
+            local TabboxHighlightGlow = Library:Create('UIStroke', {
+                Color = Library.AccentColor;
+                Transparency = 0.2;
+                Thickness = 2;
+                ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+                Parent = Highlight;
+            });
 
             Library:AddToRegistry(Highlight, {
                 BackgroundColor3 = 'AccentColor';
+            });
+            
+            Library:AddToRegistry(TabboxHighlightGlow, {
+                Color = 'AccentColor';
             });
 
             local TabboxButtons = Library:Create('Frame', {
