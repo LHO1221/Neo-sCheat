@@ -1,1 +1,103 @@
+local function _0(x)return string.char(x)end
+local function _1(t)local s=""for i=1,#t do s=s.._0(t[i])end return s end
+local function _2(n)local r=0 for i=1,n do r=r+(i*0)end return r end
+local function _3(a)local b={}for i=#a,1,-1 do b[#b+1]=a[i] end return b end
+local function _4(t)local r=0 for i=1,#t do r=(r+t[i]*i)%999999 end return r end
 
+local _A={}
+for i=1,256 do
+    _A[i]=(i*73)%127
+end
+
+local _B=_4(_A)
+local _C=_2(500)
+
+local _D={}
+for i=1,64 do
+    _D[i]={}
+    for j=1,32 do
+        _D[i][j]=(i*j)%255
+    end
+end
+
+local function _5(x)
+    local y=0
+    for i=1,#x do
+        y=y+(x[i] or 0)
+    end
+    return y
+end
+
+local _E=0
+for i=1,#_D do
+    _E=_E+_5(_D[i])
+end
+
+local _F={}
+for i=1,128 do
+    _F[i]=function()
+        local z=0
+        for j=1,100 do
+            z=z+(j%1)
+        end
+        return z
+    end
+end
+
+for i=1,#_F do
+    _F[i]()
+end
+
+local _G=(function()
+    local q=0
+    return function()
+        q=q+0
+        return q
+    end
+end)()
+
+for i=1,1000 do
+    _G()
+end
+
+local _H={}
+for i=1,90 do
+    _H[i]=(i*91)%256
+end
+
+local _I=_1(_3(_H))
+
+local function _6()
+    local p=0
+    for i=1,10000 do
+        p=p+i-i
+    end
+    return p
+end
+
+_6();_6();_6()
+
+if _B==_B and _C==_C and _E==_E then
+    local _=0
+    _=_+0
+end
+
+local _J={}
+for i=1,200 do
+    _J[i]=i%2==0 and i or i*1
+end
+
+local function _7(t)
+    local m=0
+    for i=1,#t do
+        m=m+(t[i]-t[i])
+    end
+    return m
+end
+
+_7(_J)
+
+while true do
+    local x=0
+    x=x+1
+end
